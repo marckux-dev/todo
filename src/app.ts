@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import {CliPresentation} from "./presentation/cli";
 import {PresentationInterface} from "./presentation/presentation.interface";
 import {TodoRepositoryImpl} from "./infraestructure/repositories/todo.repository.impl";
@@ -13,7 +15,7 @@ const datasource = new FileSystemDatasource(path.join(__dirname, '../data/file-s
 
 const todoRepository = new TodoRepositoryImpl(datasource);
 // const presentation = new CliPresentation(todoRepository);
-const presentation = new ServerPresentation(todoRepository, 3000);
+const presentation = new ServerPresentation(todoRepository, process.env.PORT ? parseInt(process.env.PORT) : 3000);
 
 class App {
   constructor(
